@@ -75,7 +75,8 @@ def get_LBA2PHY_data(LBA2PHY_out):
     """
     raw_data = {}
     LBA2Phy_data = {}
-    gbb_data = LBA2PHY_out.decode('ascii').split('\n')
+    #import pdb; pdb.set_trace()
+    gbb_data = LBA2PHY_out.decode('latin-1').split('\n')
     gbb_conf = read_test_config('LBA2PHY')
     #with open(LBA2PHY_out, 'rb') as gbb_data:
     for line in gbb_data:
@@ -233,6 +234,7 @@ def fio_readwrite(filename, rw, offset='0', size=None, runtime=None, pattern=Non
     	return 1
     else:
     	logger.error(f"FIO {rw} operation is unsuccessful :(")
+    	logger.error(fio_rw)
     	return 0
 
 
@@ -301,10 +303,11 @@ if __name__ == "__main__":
 
 				#Step: 2
 				logger.info(f"STEP 2 : Find physical address for the 0th LBA")
+				#import pdb; pdb.set_trace()
 				l2p = run_command(lba2phy_command.split())
 				#import pdb; pdb.set_trace()
 				lba2phy = get_LBA2PHY_data(l2p)
-				#import pdb; pdb.set_trace()
+				
 
 				#Step: 3
 				logger.info(f"STEP 3 : Reading the Initial GBB count")
