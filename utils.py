@@ -322,7 +322,7 @@ if __name__ == "__main__":
 				error_injection(dev, lba2phy, error_level)
 
 				#Step: 5
-				logger.info(f"STEP 5 : Write operation after Error Injection")
+				logger.info(f"STEP 5 : Read operation after Error Injection")
 				fio_readwrite(dev, 'read', size='10mB', pattern=pat)
 				#import pdb; pdb.set_trace()
 				#Step: 6
