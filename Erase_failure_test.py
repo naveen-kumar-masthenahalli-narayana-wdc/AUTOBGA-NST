@@ -49,7 +49,7 @@ def get_GBB_count(GBB_out, failure_type="read", stage='Initial'):
     gbb_conf = read_test_config('GBBT')
     gbb_list = []
     #import pdb; pdb.set_trace()
-    gbb_data = GBB_out.decode('ascii').split('\n')
+    gbb_data = GBB_out.decode('latin-1').split('\n')
     for line in gbb_data:
         match = re.search('([0-9]|[a-f])+:', line)
         if match:
@@ -83,7 +83,7 @@ def get_LBA2PHY_data(LBA2PHY_out):
     """
     raw_data = {}
     LBA2Phy_data = {}
-    gbb_data = LBA2PHY_out.decode('ascii').split('\n')
+    gbb_data = LBA2PHY_out.decode('latin-1').split('\n')
     gbb_conf = read_test_config('LBA2PHY')
     #with open(LBA2PHY_out, 'rb') as gbb_data:
     for line in gbb_data:
@@ -229,7 +229,7 @@ def fio_readwrite(filename, rw, offset='0', size=None, runtime=None, pattern=Non
     	print(f'Writing data from {filename} at offset {offset} of total size={size} and pattern to verify is {pattern}')
     logger.info(" ".join(['sudo', 'fio', '--name=global', '--filename='+filename, '--rw='+ rw, '--size='+size, '--offset='+offset, '--name=job1', '--verify=pattern', '--verify_pattern='+pattern]))
     fio_rw = run_command(['sudo', 'fio', '--name=global', '--filename='+filename, '--rw='+ rw, '--size='+size, '--offset='+offset, '--name=job1', '--verify=pattern', '--verify_pattern='+pattern, '--verify_dump=1'])
-    fio_rw = fio_rw.decode('ascii')
+    fio_rw = fio_rw.decode('latin-1')
     logger.info("------------- FIO Execution Summary Start--------------------")
     #logger.info(fio_rw)
     logger.info("------------- FIO Execution Summary End--------------------") 
